@@ -65,9 +65,9 @@ main:
 	mov	rcx, QWORD PTR [rbp-8]		; rcx <- [rbp-8]
 	xor	rcx, QWORD PTR fs:40		; rcx <- rcx XOR fs:40; rcx <- 0
 	je	.L5				; jump to L5
-	call	__stack_chk_fail		; call conditional statement for forloop
+	call	__stack_chk_fail		; if no element in the stack moves out
 .L5:
-	leave					; leave the forloop
+	leave					; leave the program
 	.cfi_def_cfa 7, 8
 	ret					; return
 	.cfi_endproc
