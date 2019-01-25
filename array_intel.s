@@ -26,7 +26,7 @@ main:
 	mov	eax, DWORD PTR [rbp-36]		; eax <- [rbp-36] ; eax <- 0
 	cdqe					; convert eax into edx
 	mov	eax, DWORD PTR [rbp-32+rax*4]	; eax <- [rbp-32+rax*4] ; eax <- 1
-	lea	edx, [rax+1]			; edx <- [rax+5] ; edx <- 6
+	lea	edx, [rax+1]			; edx <- [rax+1] ; edx <- 6
 	mov	eax, DWORD PTR [rbp-36]		; eax <- [rbp-36] ; eax <- 0
 	cdqe					; 
 	mov	DWORD PTR [rbp-32+rax*4], edx	; [rbp-32+rax*4] <- [edx] ; 
@@ -36,11 +36,11 @@ main:
 	jle	.L3				; conditional jump to L3
 	mov	eax, 0				; eax <- 0
 	mov	rcx, QWORD PTR [rbp-8]		; rcx <- [rbp-8]
-	xor	rcx, QWORD PTR fs:40		; rcx <- rcx XOR fs:40; 0
+	xor	rcx, QWORD PTR fs:40		; rcx <- rcx XOR fs:40;rcx <- 0
 	je	.L5				; jump to L5
-	call	__stack_chk_fail		; runs the next iteration
+	call	__stack_chk_fail		; if no element in the stack moves out
 .L5:
-	leave					; leaves the for loop
+	leave					; leaves the program
 	.cfi_def_cfa 7, 8
 	ret					; return 0
 	.cfi_endproc
